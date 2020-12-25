@@ -1,4 +1,4 @@
-package com.shubham.toothlesspetclinic;
+package toothlesspetclinic;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
