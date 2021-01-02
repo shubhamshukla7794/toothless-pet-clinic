@@ -14,7 +14,7 @@
     </parent>
     <groupId>com.shubham</groupId>
     <artifactId>toothless-pet-clinic</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>toothless-pet-clinic</name>
     <description>My version of Pet Clinic Project</description>
 
@@ -41,7 +41,7 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/shubhamshukla7794/toothless-pet-clinic.git</developerConnection>
-        <tag>toothless-pet-clinic-0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
