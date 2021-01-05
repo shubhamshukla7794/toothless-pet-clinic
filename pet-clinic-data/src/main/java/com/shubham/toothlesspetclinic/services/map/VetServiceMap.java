@@ -1,11 +1,11 @@
 package com.shubham.toothlesspetclinic.services.map;
 
 import com.shubham.toothlesspetclinic.model.Vet;
-import com.shubham.toothlesspetclinic.services.CrudService;
+import com.shubham.toothlesspetclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
