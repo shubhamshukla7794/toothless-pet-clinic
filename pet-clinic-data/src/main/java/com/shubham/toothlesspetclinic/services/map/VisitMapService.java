@@ -2,9 +2,11 @@ package com.shubham.toothlesspetclinic.services.map;
 
 import com.shubham.toothlesspetclinic.model.Visit;
 import com.shubham.toothlesspetclinic.services.VisitService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class VisitMapService extends AbstractMapService<Visit, Long> implements VisitService {
 
     @Override
