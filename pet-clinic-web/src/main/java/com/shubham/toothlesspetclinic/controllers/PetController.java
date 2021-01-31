@@ -52,6 +52,7 @@ public class PetController {
     public String initCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute("pet", pet);
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
@@ -61,7 +62,10 @@ public class PetController {
         if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null){
             result.rejectValue("name", "duplicate", "already exists");
         }
+
         owner.getPets().add(pet);
+        pet.setOwner(owner);
+
         if (result.hasErrors()) {
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
@@ -78,16 +82,75 @@ public class PetController {
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
 
+//    @PostMapping("/pets/{petId}/edit")
+//    public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, Model model) {
+//        if (result.hasErrors()) {
+//            pet.setOwner(owner);
+//            model.addAttribute("pet", pet);
+//            return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+//        } else {
+//            owner.getPets().add(pet);
+//            pet.setOwner(owner);
+//            petService.save(pet);
+//            return "redirect:/owners/" + owner.getId();
+//        }
+//    }
+
+//    @PostMapping("/pets/{petId}/edit")
+//    public String processUpdateForm(@ModelAttribute("owner") Owner owner,
+//                                    @Valid @ModelAttribute("pet") Pet pet,
+//                                    @PathVariable String petId, BindingResult result,
+//                                    Model model) {
+//        if (result.hasErrors()) {
+//            pet.setOwner(owner);
+//            model.addAttribute("pet", pet);
+//            return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+//        }
+//        if (StringUtils.hasLength(pet.getName())){
+//            Pet foundPet = owner.getPet(pet.getName());
+//            if (foundPet != null && !foundPet.getId().equals(petId)){
+//                result.rejectValue("name", "duplicate", "already used for other pet for this owner");
+//            }
+//        }
+//        if (!StringUtils.hasLength(pet.getName())) {
+//            result.rejectValue("name", "null", "name of pet cannot be empty");
+//        }
+//
+//        Pet foundPet = petService.findById(Long.valueOf(petId));
+//        foundPet.setOwner(owner);
+//        foundPet.setPetType(pet.getPetType());
+//        foundPet.setName(pet.getName());
+//        foundPet.setBirthDate(pet.getBirthDate());
+//        petService.save(foundPet);
+//
+//        return "redirect:/owners/" + owner.getId();
+//    }
+
     @PostMapping("/pets/{petId}/edit")
-    public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, Model model) {
+    public String processUpdateForm(@Valid Pet pet,@PathVariable String petId, BindingResult result, Owner owner, Model model) {
         if (result.hasErrors()) {
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         } else {
-            owner.getPets().add(pet);
-            petService.save(pet);
+            if (StringUtils.hasLength(pet.getName())){
+                Pet foundPet = owner.getPet(pet.getName());
+                if (foundPet != null && !foundPet.getId().equals(petId)){
+                    result.rejectValue("name", "duplicate", "already used for other pet for this owner");
+                }
+            }
+            if (!StringUtils.hasLength(pet.getName())) {
+                result.rejectValue("name", "null", "name of pet cannot be empty");
+            }
+            Pet foundPet = petService.findById(Long.valueOf(petId));
+            foundPet.setOwner(owner);
+            foundPet.setPetType(pet.getPetType());
+            foundPet.setName(pet.getName());
+            foundPet.setBirthDate(pet.getBirthDate());
+            petService.save(foundPet);
             return "redirect:/owners/" + owner.getId();
         }
     }
+
+
 }
