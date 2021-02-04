@@ -17,11 +17,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
   <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}" />
 
 </head>
 
-<body>
+<body class="bground">
 
   <nav class="navbar navbar-default" role="navigation">
     <div class="container">
@@ -53,26 +54,26 @@
 
         <ul class="nav navbar-nav navbar-right">
 
-          <li th:replace="::menuItem ('/','home','home page','home','Home')">
+          <li th:replace="::menuItem ('/','home','Home Page','home','Home')">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
             <span>Home</span>
           </li>
 
-          <li th:replace="::menuItem ('/owners/find','owners','find owners','search','Find owners')">
+          <li th:replace="::menuItem ('/owners/find','owners','Find Owners','search','Find owners')">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find owners</span>
           </li>
 
-          <li th:replace="::menuItem ('/vets.html','vets','veterinarians','th-list','Veterinarians')">
+          <li th:replace="::menuItem ('/vets.html','vets','Veterinarians','th-list','Veterinarians')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Veterinarians</span>
           </li>
 
-          <li
-            th:replace="::menuItem ('/oups','error','trigger a RuntimeException to see how it is handled','warning-sign','Error')">
-            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-            <span>Error</span>
-          </li>
+<!--          <li-->
+<!--            th:replace="::menuItem ('/oups','error','trigger a RuntimeException to see how it is handled','warning-sign','Error')">-->
+<!--            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>-->
+<!--            <span>Error</span>-->
+<!--          </li>-->
 
         </ul>
       </div>
@@ -85,15 +86,59 @@
 
       <br />
       <br />
-      <div class="container">
+<!--      <div class="container">-->
+<!--        <div class="row">-->
+<!--          <div class="col-12 text-center">-->
+<!--            <img src="../static/resources/images/spring-pivotal-logo.png"-->
+<!--              th:src="@{/resources/images/spring-pivotal-logo.png}" alt="Sponsored by Pivotal" /></div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+    </div>
+  </div>
+
+  <footer class="mainFooter">
+    <div class="row">
+      <div class="col-md-6">
+        <p style="color: white">My version of classic Spring Pet Clinic project developed while undergoing an online course Spring Framework 5</p>
+        <p style="color: white">© 2020, All rights reserved</p>
+      </div>
+      <div class="col-md-6">
+        <h5 style="color: white"><i class="bi bi-person-lines-fill"></i> Contact :</h5>
         <div class="row">
-          <div class="col-12 text-center">
-            <img src="../static/resources/images/spring-pivotal-logo.png"
-              th:src="@{/resources/images/spring-pivotal-logo.png}" alt="Sponsored by Pivotal" /></div>
+          <div class="col-md-2">
+            <p style="color: white"><i class="bi bi-person-square"></i> Name</p>
+          </div>
+          <div class="col-md-1"><p style="color: white">-</p></div>
+          <div class="col-md-9">
+            <p style="color: white">SHUBHAM KUMAR SHUKLA</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <p style="color: white"><i class="bi bi-envelope-open-fill"></i> Email</p>
+          </div>
+          <div class="col-md-1"><p style="color: white">-</p></div>
+          <div class="col-md-9">
+            <a href="mailto:shubhamshukla7794@gmail.com" style="color: white"
+               onmouseover="this.style.color='#000000'"
+               onmouseout="this.style.color='#ffffff'">shubhamshukla7794@gmail.com</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <p style="color: white"><i class="bi bi-github"></i> Github</p>
+          </div>
+          <div class="col-md-1"><p style="color: white">-</p></div>
+          <div class="col-md-9">
+            <a href="https://github.com/shubhamshukla7794" target="_blank" style="color: white"
+               onmouseover="this.style.color='#000000'"
+               onmouseout="this.style.color='#ffffff'">https://github.com/shubhamshukla7794</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 
   <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
