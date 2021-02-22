@@ -49,7 +49,6 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-
         owner = Owner.builder().id(1l).build();
         pet = Pet.builder().id(1L).build();
 
@@ -79,7 +78,8 @@ class PetControllerTest {
         mockMvc.perform(post("/owners/1/pets/new")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", "The Dog")
-                .param("birthDate", "2021-02-22"))
+                .param("birthDate", "2021-02-22")
+                .param("petType", "Dog"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
@@ -99,6 +99,19 @@ class PetControllerTest {
     }
 
     @Test
+    void processCreationFormPetTypeValidationFailed() throws Exception{
+
+        mockMvc.perform(post("/owners/1/pets/new")
+                .param("name", "Hedwig")
+                .param("birthDate", "2021-02-22"))
+                .andExpect(model().attributeHasFieldErrors("pet", "petType"))
+                .andExpect(model().attributeHasFieldErrorCode("pet", "petType", "required"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pets/createOrUpdatePetForm"));
+
+    }
+
+    @Test
     void initUpdateForm() throws Exception {
         when(petService.findById(anyLong())).thenReturn(Pet.builder().id(2L).build());
 
@@ -115,11 +128,13 @@ class PetControllerTest {
 
         mockMvc.perform(post("/owners/1/pets/2/edit")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("name", "The Cat")
-                .param("birthDate", "2021-02-22"))
+                .param("name", "The Owl")
+                .param("birthDate", "2021-02-22")
+                .param("petType", "Owl"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
         verify(petService).save(any());
     }
+
 }

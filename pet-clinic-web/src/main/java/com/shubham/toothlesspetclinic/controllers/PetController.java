@@ -6,6 +6,7 @@ import com.shubham.toothlesspetclinic.model.PetType;
 import com.shubham.toothlesspetclinic.services.OwnerService;
 import com.shubham.toothlesspetclinic.services.PetService;
 import com.shubham.toothlesspetclinic.services.PetTypeService;
+import com.shubham.toothlesspetclinic.validators.PetValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -46,6 +47,11 @@ public class PetController {
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+    }
+
+    @InitBinder("pet")
+    public void initPetBinder(WebDataBinder dataBinder){
+        dataBinder.setValidator(new PetValidator());
     }
 
     @GetMapping("/pets/new")
