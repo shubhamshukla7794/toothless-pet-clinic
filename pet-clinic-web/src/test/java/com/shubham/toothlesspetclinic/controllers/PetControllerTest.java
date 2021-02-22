@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -20,8 +21,7 @@ import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -49,6 +49,7 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
+
         owner = Owner.builder().id(1l).build();
         pet = Pet.builder().id(1L).build();
 
@@ -56,13 +57,14 @@ class PetControllerTest {
         petTypes.add(PetType.builder().id(1L).name("Dog").build());
         petTypes.add(PetType.builder().id(2L).name("Owl").build());
 
+        when(ownerService.findById(anyLong())).thenReturn(owner);
+        when(petTypeService.findAll()).thenReturn(petTypes);
+
         mockMvc = MockMvcBuilders.standaloneSetup(petController).build();
     }
 
     @Test
     void initCreationForm() throws Exception{
-        when(ownerService.findById(anyLong())).thenReturn(owner);
-        when(petTypeService.findAll()).thenReturn(petTypes);
 
         mockMvc.perform(get("/owners/1/pets/new"))
                 .andExpect(status().isOk())
@@ -73,10 +75,11 @@ class PetControllerTest {
 
     @Test
     void processCreationForm() throws Exception {
-        when(ownerService.findById(anyLong())).thenReturn(owner);
-        when(petTypeService.findAll()).thenReturn(petTypes);
 
-        mockMvc.perform(post("/owners/1/pets/new"))
+        mockMvc.perform(post("/owners/1/pets/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "The Dog")
+                .param("birthDate", "2021-02-22"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
@@ -84,9 +87,19 @@ class PetControllerTest {
     }
 
     @Test
+    void processCreationFormValidationFailed() throws Exception{
+
+        mockMvc.perform(post("/owners/1/pets/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pets/createOrUpdatePetForm"))
+                .andExpect(model().attributeExists("pet"));
+
+        verifyNoInteractions(petService);
+    }
+
+    @Test
     void initUpdateForm() throws Exception {
-        when(ownerService.findById(anyLong())).thenReturn(owner);
-        when(petTypeService.findAll()).thenReturn(petTypes);
         when(petService.findById(anyLong())).thenReturn(Pet.builder().id(2L).build());
 
         mockMvc.perform(get("/owners/1/pets/2/edit"))
@@ -98,29 +111,15 @@ class PetControllerTest {
 
     @Test
     void processUpdateForm() throws Exception {
-        when(ownerService.findById(anyLong())).thenReturn(owner);
-        when(petTypeService.findAll()).thenReturn(petTypes);
         when(petService.findById(anyLong())).thenReturn(pet);
 
-        mockMvc.perform(post("/owners/1/pets/2/edit"))
+        mockMvc.perform(post("/owners/1/pets/2/edit")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "The Cat")
+                .param("birthDate", "2021-02-22"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
         verify(petService).save(any());
-    }
-
-    @Test
-    void populatePetTypes() {
-        //todo impl
-    }
-
-    @Test
-    void findOwner() {
-        //todo impl
-    }
-
-    @Test
-    void initOwnerBinder() {
-        //todo impl
     }
 }
