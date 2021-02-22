@@ -5,10 +5,17 @@
     <title>Pet Clinic Index</title>
 </head>
 <body>
-   <h2 th:text="#{welcome}">Welcome</h2>
    <div class="row">
-       <div class="col-md-12">
-           <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
+       <div class="col-md-6">
+           <img class="img-responsive" src="../static/resources/images/Toothless_main.png" th:src="@{resources/images/Toothless_main.png}">
+       </div>
+       <div class="col-md-6">
+           <div>
+               <h1 th:text="#{welcome}">Welcome</h1>
+               <h1>to </h1>
+               <h1>Toothless</h1>
+               <h1>Pet Clinic</h1>
+           </div>
        </div>
    </div>
 </body>

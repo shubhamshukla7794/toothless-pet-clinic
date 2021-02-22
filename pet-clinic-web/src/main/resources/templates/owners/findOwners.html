@@ -3,7 +3,7 @@
 
 <body>
 
-  <h2>Find Owners</h2>
+  <h2><i class="fas fa-users"></i> Find Owners</h2>
 
   <form th:object="${owner}" th:action="@{/owners}" method="get"
     class="form-horizontal" id="search-owner-form">
@@ -22,7 +22,8 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find Owner</button>
+<!--          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Find Owner</button>-->
+          <i class="fas fa-search"></i> Find Owner</button>
       </div>
     </div>
 
@@ -30,7 +31,7 @@
 
   <br />
   <a class="btn btn-default" th:href="@{/owners/new}">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Owner</a>
-
+<!--    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add Owner</a>-->
+    <i class="fas fa-user-plus"></i> Add Owner</a>
 </body>
 </html>
