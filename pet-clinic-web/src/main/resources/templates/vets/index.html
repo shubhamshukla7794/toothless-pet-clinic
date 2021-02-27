@@ -10,14 +10,12 @@
     <table class="table table-hover">
         <thead>
         <tr>
-<!--            <th>ID</th>-->
             <th><i class="fas fa-user-md"></i> Name</th>
             <th><i class="fas fa-user-tag"></i> Specialties</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="vet : ${vets}">
-<!--            <td th:text="${vet.id}">1</td>-->
             <td th:text="${vet.firstName + ' ' + vet.lastName}">John Doe</td>
             <td><span th:each="specialty : ${vet.specialties}" th:text="${specialty.description + ' '}"></span>
                 <span th:if="${vet?.specialties?.size() == 0}">None</span></td>

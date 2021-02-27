@@ -9,14 +9,14 @@
     </div>
     <div class="col-md-6">
         <div>
-            <h1>Something happened...</h1>
-            <h2 th:text="${message}">Exception message</h2>
+            <h1 class="error-title">Error encountered...</h1>
+            <h2 th:text="${message}" class="error-content">Exception message</h2>
+            <hr>
+            <div style="text-align: center">
+                <a href="#" th:href="@{'/'}" class="btn btn-primary btn-lg"><i class="fas fa-home"></i> Go to Home</a>
+            </div>
         </div>
     </div>
 </div>
-<!--<img src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>-->
-<!--<h2>Something happened...</h2>-->
-<!--<p th:text="${message}">Exception message</p>-->
 </body>
-
 </html>

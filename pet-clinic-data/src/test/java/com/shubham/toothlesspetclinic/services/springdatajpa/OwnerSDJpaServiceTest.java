@@ -87,7 +87,7 @@ class OwnerSDJpaServiceTest {
     @Test
     void delete() {
         service.delete(returnOwner);
-        //Default is 1 times
+        //Default is 1 time
         verify(ownerRepository, times(1)).delete(any());
     }
 

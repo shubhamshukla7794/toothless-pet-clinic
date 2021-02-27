@@ -14,6 +14,7 @@ INSERT INTO vet_specialties VALUES (2, 2);
 INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
+INSERT INTO vet_specialties VALUES (6, 3);
 
 INSERT INTO types VALUES (1, 'Dog');
 INSERT INTO types VALUES (2, 'Owl');

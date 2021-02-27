@@ -2,32 +2,31 @@
 
 <html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
-  <body>
+<body>
 
-    <h2><i class="fas fa-users"></i> Owners</h2>
+<h2><i class="fas fa-users"></i> Owners</h2>
 
     <table id="owners" class="table table-hover">
         <thead>
-        <tr>
-            <th><i class="fas fa-user"></i> Name</th>
-            <th><i class="fas fa-address-book"></i> Address</th>
-            <th><i class="fas fa-map-marker-alt"></i> City</th>
-            <th><i class="fas fa-phone-alt"></i> Telephone</th>
-            <th><i class="fas fa-paw"></i> Pets</th>
-        </tr>
+            <tr>
+                <th><i class="fas fa-user"></i> Name</th>
+                <th><i class="fas fa-address-book"></i> Address</th>
+                <th><i class="fas fa-map-marker-alt"></i> City</th>
+                <th><i class="fas fa-phone-alt"></i> Telephone</th>
+                <th><i class="fas fa-paw"></i> Pets</th>
+            </tr>
         </thead>
         <tbody>
-          <tr th:each="owner : ${selections}">
-              <td>
-                  <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}"/></a>
-              </td>
-              <td th:utext="${owner.address}"/>
-              <td th:text="${owner.city}"/>
-              <td th:text="${owner.telephone}"/>
-              <td><span th:each="pet : ${owner.pets}" th:utext="${pet.name + '&emsp;'} "/></td>
-          </tr>
+            <tr th:each="owner : ${selections}">
+                <td>
+                    <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}"/></a>
+                </td>
+                <td th:utext="${owner.address}"/>
+                <td th:text="${owner.city}"/>
+                <td th:text="${owner.telephone}"/>
+                <td><span th:each="pet : ${owner.pets}" th:utext="${pet.name + '&emsp;'} "/></td>
+            </tr>
         </tbody>
     </table>
-
-  </body>
+</body>
 </html>
